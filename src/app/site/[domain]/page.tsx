@@ -49,7 +49,8 @@ export default function SitePage({ params }: { params: Promise<{ domain: string 
             <h1 className="text-4xl md:text-6xl font-bold tracking-tighter">{domain}</h1>
           </div>
           <div className="flex items-center gap-4 shrink-0">
-            <Dialog>
+            {activeTab === "v2.0" ? (
+              <Dialog>
               <DialogTrigger render={
                 <Button className="bg-black hover:bg-black/80 text-white rounded-full font-bold px-10 shadow-none h-14 text-lg">
                   Give Feedback
@@ -134,6 +135,11 @@ export default function SitePage({ params }: { params: Promise<{ domain: string 
                 </div>
               </DialogContent>
             </Dialog>
+            ) : (
+              <Badge variant="outline" className="h-14 px-8 rounded-full border-border text-muted-foreground font-bold text-lg bg-secondary/30">
+                Archived Version
+              </Badge>
+            )}
 
             <a href={`https://${domain}`} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-14 h-14 rounded-full border border-border hover:bg-secondary transition-colors text-black">
               <ExternalLink className="w-6 h-6" />
