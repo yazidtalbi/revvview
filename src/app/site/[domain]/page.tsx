@@ -309,7 +309,7 @@ export default function SitePage({ params }: { params: Promise<{ domain: string 
                 </div>
 
                 {/* Community Reviews */}
-                <div className="pt-4">
+                <div className="pt-12 border-t border-border">
                   <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 border-b border-dashed border-border pb-4 gap-4">
                     <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8">
                       <h2 className="text-xl font-bold tracking-tight">Community Reviews for {activeTab}</h2>
