@@ -39,7 +39,7 @@ export default function SitePage({ params }: { params: Promise<{ domain: string 
     }
   };
 
-  const activeData = versionsData[activeTab as keyof typeof versionsData];
+  const activeData = versionsData[activeTab as keyof typeof versionsData] as any;
 
   return (
     <div className="flex flex-col min-h-screen font-sans bg-background">
@@ -67,11 +67,11 @@ export default function SitePage({ params }: { params: Promise<{ domain: string 
                   ))}
                   
                   <Dialog>
-                    <DialogTrigger asChild>
+                    <DialogTrigger render={
                       <Button variant="outline" className="h-6 px-3 ml-2 text-xs font-bold rounded-full border-border hover:border-black shrink-0">
                         + Update
                       </Button>
-                    </DialogTrigger>
+                    } />
                     <DialogContent className="bg-white border-border rounded-2xl sm:max-w-md p-6">
                       <DialogHeader className="mb-4">
                         <DialogTitle className="text-2xl font-bold tracking-tight">Submit New Version</DialogTitle>
@@ -110,11 +110,11 @@ export default function SitePage({ params }: { params: Promise<{ domain: string 
               </div>
               <div className="flex items-center gap-4">
                 <Dialog>
-                  <DialogTrigger asChild>
+                  <DialogTrigger render={
                     <Button className="bg-black hover:bg-black/80 text-white rounded-full font-bold px-8 shadow-none h-12">
                       Give Feedback
                     </Button>
-                  </DialogTrigger>
+                  } />
                   <DialogContent className="bg-white border-border rounded-2xl sm:max-w-md p-6">
                     <DialogHeader className="mb-4">
                       <DialogTitle className="text-2xl font-bold tracking-tight flex items-center gap-2">
@@ -288,7 +288,7 @@ export default function SitePage({ params }: { params: Promise<{ domain: string 
                   </div>
 
                   <div className="space-y-8">
-                    {activeData.reviews?.map((review, idx) => (
+                    {activeData.reviews?.map((review: any, idx: number) => (
                       <div key={idx} className="border border-border p-6 md:p-8 rounded-2xl flex flex-col gap-6 hover:border-black/20 transition-colors">
                         <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6">
 
@@ -307,7 +307,7 @@ export default function SitePage({ params }: { params: Promise<{ domain: string 
                               "{review.text}"
                             </p>
                             <div className="flex flex-wrap gap-2">
-                              {review.tags.map((tag, tIdx) => (
+                              {review.tags.map((tag: string, tIdx: number) => (
                                 <Badge key={tIdx} variant="outline" className="border-border text-sm font-bold px-4 py-1.5 text-muted-foreground bg-transparent">
                                   {tag}
                                 </Badge>
