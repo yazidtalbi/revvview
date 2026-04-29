@@ -160,13 +160,10 @@ export default function SitePage({ params }: { params: Promise<{ domain: string 
               />
             </div>
 
-            {/* About */}
-            <div>
-              <h2 className="text-2xl font-bold mb-4 tracking-tight">About</h2>
-              <p className="text-muted-foreground leading-relaxed text-xl max-w-4xl">
-                A brief description about {domain}. We're looking for feedback on our onboarding flow and general UI/UX. Let us know what you think! This is a placeholder description that highlights the core features of the site.
-              </p>
-            </div>
+            {/* About Description */}
+            <p className="text-muted-foreground leading-relaxed text-base max-w-4xl">
+              A brief description about {domain}. We're looking for feedback on our onboarding flow and general UI/UX. Let us know what you think! This is a placeholder description that highlights the core features of the site.
+            </p>
 
             {/* Color Palette */}
             <div>
@@ -212,12 +209,12 @@ export default function SitePage({ params }: { params: Promise<{ domain: string 
           {/* Right Sidebar - Now 8 columns instead of 4 */}
           <div className="lg:col-span-8 lg:pl-12 pb-12">
             <div className="sticky top-24 space-y-12">
-              
+
               {/* Version Tabs & Update Controls */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-border pb-2 gap-4">
                 <div className="flex items-center gap-6 overflow-x-auto no-scrollbar pt-2">
                   {['v2.0', 'v1.0'].map((tab) => (
-                    <button 
+                    <button
                       key={tab}
                       onClick={() => setActiveTab(tab)}
                       className={`text-sm md:text-base font-bold whitespace-nowrap pb-4 -mb-[10px] transition-colors ${activeTab === tab ? 'text-black border-b-2 border-black' : 'text-muted-foreground hover:text-black'}`}
@@ -270,121 +267,119 @@ export default function SitePage({ params }: { params: Promise<{ domain: string 
               </div>
 
               <div className="space-y-16">
-                  {/* Community Score section */}
-                  <div className="grid grid-cols-1 xl:grid-cols-2 gap-12">
-                    {/* Left: Changelog */}
-                    <div>
-                      <h2 className="text-2xl font-bold mb-8 tracking-tight">What's New in {activeTab}</h2>
-                      <div className="pt-0 md:pt-2 border-t border-border">
-                        <div className="text-muted-foreground leading-relaxed text-base max-w-4xl space-y-4 mt-6">
-                          <p>{activeData.changelog}</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Right: Score Breakdown */}
-                    <div className="xl:border-l xl:border-border xl:pl-12">
-                      <h2 className="text-2xl font-bold mb-8 tracking-tight">Community Score</h2>
-                      <div className="pt-0 md:pt-2 border-t border-border">
-                        <div className="space-y-6 mt-6">
-                          {[
-                            { label: "Design", score: activeData.score?.design },
-                            { label: "Usability", score: activeData.score?.usability },
-                            { label: "Creativity", score: activeData.score?.creativity },
-                            { label: "Content", score: activeData.score?.content },
-                          ].map((item) => (
-                            <div key={item.label} className="flex flex-col gap-2">
-                              <div className="flex justify-between items-center">
-                                <span className="text-sm font-bold tracking-wide">{item.label}</span>
-                                <span className="text-sm font-bold">{item.score}</span>
-                              </div>
-                              <div className="w-full h-3 bg-secondary rounded-full relative overflow-hidden">
-                                <div className="absolute top-0 left-0 h-full bg-black rounded-full" style={{ width: `${(item.score || 0 / 10) * 10}%` }}></div>
-                              </div>
-                            </div>
-                          ))}
-
-                          <div className="pt-4 flex items-center justify-between border-t border-border mt-6">
-                            <span className="font-bold text-lg">Total Score</span>
-                            <span className="font-bold text-3xl text-primary">{activeData.score?.overall}</span>
+                {/* Community Score section */}
+                <div className="grid grid-cols-1 xl:grid-cols-2 gap-12">
+                  {/* Left: Score Breakdown */}
+                  <div>
+                    <h2 className="text-2xl font-bold mb-8 tracking-tight">Community Score</h2>
+                    <div className="space-y-6">
+                      {[
+                        { label: "Design", score: activeData.score?.design },
+                        { label: "Usability", score: activeData.score?.usability },
+                        { label: "Creativity", score: activeData.score?.creativity },
+                        { label: "Content", score: activeData.score?.content },
+                      ].map((item) => (
+                        <div key={item.label} className="flex flex-col gap-2">
+                          <div className="flex justify-between items-center">
+                            <span className="text-sm font-bold tracking-wide">{item.label}</span>
+                            <span className="text-sm font-bold">{item.score}</span>
                           </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Community Reviews */}
-                  <div className="pt-4">
-                    <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 border-b border-dashed border-border pb-4 gap-4">
-                      <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8">
-                        <h2 className="text-xl font-bold tracking-tight">Community Reviews for {activeTab}</h2>
-                        <div className="flex gap-6">
-                          <button className="text-sm font-bold text-muted-foreground hover:text-black transition-colors">Jury</button>
-                          <button className="text-sm font-bold text-black border-b-2 border-black pb-1">Community Members</button>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="space-y-8">
-                      {activeData.reviews?.map((review: any, idx: number) => (
-                        <div key={idx} className="border border-border p-6 md:p-8 rounded-2xl flex flex-col gap-6 hover:border-black/20 transition-colors">
-                          <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6">
-
-                            {/* User Info & Text */}
-                            <div className="flex-1">
-                              <div className="flex items-center gap-4 mb-4">
-                                <div className="w-12 h-12 rounded-full overflow-hidden border border-border relative shrink-0">
-                                  <Image src={review.avatar} alt={review.name} fill className="object-cover" unoptimized />
-                                </div>
-                                <div>
-                                  <p className="font-bold text-lg">{review.name}</p>
-                                  <p className="text-sm text-muted-foreground">from {review.country} • {review.date}</p>
-                                </div>
-                              </div>
-                              <p className="text-muted-foreground leading-relaxed text-base md:text-lg mb-4">
-                                "{review.text}"
-                              </p>
-                              <div className="flex flex-wrap gap-2">
-                                {review.tags.map((tag: string, tIdx: number) => (
-                                  <Badge key={tIdx} variant="outline" className="border-border text-sm font-bold px-4 py-1.5 text-muted-foreground bg-transparent">
-                                    {tag}
-                                  </Badge>
-                                ))}
-                              </div>
-                            </div>
-
-                            {/* Scores Breakdown */}
-                            <div className="flex flex-col shrink-0 lg:w-64 bg-secondary/50 rounded-xl p-4 md:p-6 border border-border/50">
-                              <div className="flex items-center justify-between mb-4 pb-4 border-b border-border/50">
-                                <span className="font-bold">Overall</span>
-                                <span className="font-bold text-2xl">{review.overall}</span>
-                              </div>
-                              <div className="space-y-3">
-                                <div className="flex items-center justify-between text-sm">
-                                  <span className="text-muted-foreground">Design</span>
-                                  <span className="font-bold">{review.design}</span>
-                                </div>
-                                <div className="flex items-center justify-between text-sm">
-                                  <span className="text-muted-foreground">Usability</span>
-                                  <span className="font-bold">{review.usability}</span>
-                                </div>
-                                <div className="flex items-center justify-between text-sm">
-                                  <span className="text-muted-foreground">Creativity</span>
-                                  <span className="font-bold">{review.creativity}</span>
-                                </div>
-                                <div className="flex items-center justify-between text-sm">
-                                  <span className="text-muted-foreground">Content</span>
-                                  <span className="font-bold">{review.content}</span>
-                                </div>
-                              </div>
-                            </div>
-
+                          <div className="w-full h-3 bg-secondary rounded-full relative overflow-hidden">
+                            <div className="absolute top-0 left-0 h-full bg-black rounded-full" style={{ width: `${(item.score || 0 / 10) * 10}%` }}></div>
                           </div>
                         </div>
                       ))}
+
+                      <div className="pt-4 flex items-center justify-between border-t border-border mt-6">
+                        <span className="font-bold text-lg">Total Score</span>
+                        <span className="font-bold text-3xl text-primary">{activeData.score?.overall}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Right: Changelog */}
+                  <div className="xl:border-l xl:border-border xl:pl-12">
+                    <h2 className="text-2xl font-bold mb-8 tracking-tight">What's New in {activeTab}</h2>
+                    <div className="pt-0 md:pt-2 border-t border-border">
+                      <div className="text-muted-foreground leading-relaxed text-base max-w-4xl space-y-4 mt-6">
+                        <p>{activeData.changelog}</p>
+                      </div>
                     </div>
                   </div>
                 </div>
+
+                {/* Community Reviews */}
+                <div className="pt-4">
+                  <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 border-b border-dashed border-border pb-4 gap-4">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8">
+                      <h2 className="text-xl font-bold tracking-tight">Community Reviews for {activeTab}</h2>
+                      <div className="flex gap-6">
+                        <button className="text-sm font-bold text-muted-foreground hover:text-black transition-colors">Jury</button>
+                        <button className="text-sm font-bold text-black border-b-2 border-black pb-1">Community Members</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-8">
+                    {activeData.reviews?.map((review: any, idx: number) => (
+                      <div key={idx} className="border border-border p-6 md:p-8 rounded-2xl flex flex-col gap-6 hover:border-black/20 transition-colors">
+                        <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6">
+
+                          {/* User Info & Text */}
+                          <div className="flex-1">
+                            <div className="flex items-center gap-4 mb-4">
+                              <div className="w-12 h-12 rounded-full overflow-hidden border border-border relative shrink-0">
+                                <Image src={review.avatar} alt={review.name} fill className="object-cover" unoptimized />
+                              </div>
+                              <div>
+                                <p className="font-bold text-lg">{review.name}</p>
+                                <p className="text-sm text-muted-foreground">from {review.country} • {review.date}</p>
+                              </div>
+                            </div>
+                            <p className="text-muted-foreground leading-relaxed text-base md:text-lg mb-4">
+                              "{review.text}"
+                            </p>
+                            <div className="flex flex-wrap gap-2">
+                              {review.tags.map((tag: string, tIdx: number) => (
+                                <Badge key={tIdx} variant="outline" className="border-border text-sm font-bold px-4 py-1.5 text-muted-foreground bg-transparent">
+                                  {tag}
+                                </Badge>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Scores Breakdown */}
+                          <div className="flex flex-col shrink-0 lg:w-64 bg-secondary/50 rounded-xl p-4 md:p-6 border border-border/50">
+                            <div className="flex items-center justify-between mb-4 pb-4 border-b border-border/50">
+                              <span className="font-bold">Overall</span>
+                              <span className="font-bold text-2xl">{review.overall}</span>
+                            </div>
+                            <div className="space-y-3">
+                              <div className="flex items-center justify-between text-sm">
+                                <span className="text-muted-foreground">Design</span>
+                                <span className="font-bold">{review.design}</span>
+                              </div>
+                              <div className="flex items-center justify-between text-sm">
+                                <span className="text-muted-foreground">Usability</span>
+                                <span className="font-bold">{review.usability}</span>
+                              </div>
+                              <div className="flex items-center justify-between text-sm">
+                                <span className="text-muted-foreground">Creativity</span>
+                                <span className="font-bold">{review.creativity}</span>
+                              </div>
+                              <div className="flex items-center justify-between text-sm">
+                                <span className="text-muted-foreground">Content</span>
+                                <span className="font-bold">{review.content}</span>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
 
             </div>
           </div>
