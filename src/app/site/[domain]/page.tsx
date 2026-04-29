@@ -271,7 +271,7 @@ export default function SitePage({ params }: { params: Promise<{ domain: string 
 
               <div className="space-y-16">
                   {/* Community Score section */}
-                  <div className="grid grid-cols-1 xl:grid-cols-3 gap-12">
+                  <div className="grid grid-cols-1 xl:grid-cols-2 gap-12">
                     {/* Left: Score Breakdown */}
                     <div>
                       <h2 className="text-2xl font-bold mb-8 tracking-tight">Community Score</h2>
@@ -296,23 +296,6 @@ export default function SitePage({ params }: { params: Promise<{ domain: string 
                         <div className="pt-4 flex items-center justify-between border-t border-border mt-6">
                           <span className="font-bold text-lg">Total Score</span>
                           <span className="font-bold text-3xl text-primary">{activeData.score?.overall}</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Middle: Top Label */}
-                    <div>
-                      <h2 className="text-2xl font-bold mb-8 tracking-tight opacity-0 hidden md:block">Label</h2>
-                      <div className="pt-0 md:pt-2 border-t border-border">
-                        <h3 className="text-sm font-bold tracking-widest text-muted-foreground uppercase mb-4 mt-6">Community Pick</h3>
-                        <div className="p-5 border border-border rounded-lg bg-white hover:border-black/30 transition-colors flex items-start gap-4 cursor-default">
-                          <span className="text-4xl leading-none pt-0.5">{activeData.topLabel?.emoji}</span>
-                          <div className="flex flex-col gap-1">
-                            <span className="font-bold text-lg text-black leading-none">{activeData.topLabel?.title}</span>
-                            <p className="text-sm text-muted-foreground leading-relaxed mt-1">
-                              {activeData.topLabel?.desc}
-                            </p>
-                          </div>
                         </div>
                       </div>
                     </div>
