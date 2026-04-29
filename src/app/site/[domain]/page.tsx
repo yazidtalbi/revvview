@@ -12,6 +12,7 @@ export default function SitePage({ params }: { params: Promise<{ domain: string 
   const { domain } = React.use(params);
   const [activeTab, setActiveTab] = useState("v2.0");
   const [headerVisible, setHeaderVisible] = useState(true);
+  const [isCompact, setIsCompact] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
 
   useEffect(() => {
@@ -22,10 +23,12 @@ export default function SitePage({ params }: { params: Promise<{ domain: string 
       // But keep it visible at the very top
       if (currentScrollY < 100) {
         setHeaderVisible(true);
+        setIsCompact(false);
       } else if (currentScrollY > lastScrollY) {
         setHeaderVisible(false);
       } else {
         setHeaderVisible(true);
+        setIsCompact(true);
       }
       
       setLastScrollY(currentScrollY);
@@ -66,16 +69,16 @@ export default function SitePage({ params }: { params: Promise<{ domain: string 
       <main className="flex-1 w-full px-4 md:px-8 lg:px-12">
 
         {/* Site Sticky Header Section */}
-        <div className={`sticky top-16 z-40 bg-background/95 backdrop-blur-sm py-8 border-b border-border transition-all duration-500 ease-in-out flex flex-col md:flex-row items-center justify-between gap-6 mb-12 ${headerVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0 pointer-events-none'}`}>
+        <div className={`sticky top-16 z-40 bg-background/95 backdrop-blur-sm border-b border-border transition-all duration-500 ease-in-out flex flex-col md:flex-row items-center justify-between gap-6 mb-12 ${headerVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0 pointer-events-none'} ${isCompact ? 'py-3' : 'py-8'}`}>
           <div className="flex flex-col items-center md:items-start text-center md:text-left w-full overflow-hidden">
-            <p className="text-sm font-bold text-muted-foreground tracking-widest mb-2 uppercase">Site of the Day</p>
-            <h1 className="text-4xl md:text-6xl font-bold tracking-tighter">{domain}</h1>
+            <p className={`font-bold text-muted-foreground tracking-widest uppercase transition-all duration-500 ${isCompact ? 'text-[10px] mb-0' : 'text-sm mb-2'}`}>Site of the Day</p>
+            <h1 className={`font-bold tracking-tighter transition-all duration-500 ${isCompact ? 'text-2xl md:text-3xl' : 'text-4xl md:text-6xl'}`}>{domain}</h1>
           </div>
           <div className="flex items-center gap-4 shrink-0">
             {activeTab === "v2.0" ? (
               <Dialog>
               <DialogTrigger render={
-                <Button className="bg-black hover:bg-black/80 text-white rounded-full font-bold px-10 shadow-none h-14 text-lg">
+                <Button className={`bg-black hover:bg-black/80 text-white rounded-full font-bold shadow-none transition-all duration-500 ${isCompact ? 'h-10 px-6 text-sm' : 'h-14 px-10 text-lg'}`}>
                   Give Feedback
                 </Button>
               } />
@@ -164,8 +167,8 @@ export default function SitePage({ params }: { params: Promise<{ domain: string 
               </Badge>
             )}
 
-            <a href={`https://${domain}`} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-14 h-14 rounded-full border border-border hover:bg-secondary transition-colors text-black">
-              <ExternalLink className="w-6 h-6" />
+            <a href={`https://${domain}`} target="_blank" rel="noopener noreferrer" className={`flex items-center justify-center rounded-full border border-border hover:bg-secondary transition-all duration-500 text-black ${isCompact ? 'w-10 h-10' : 'w-14 h-14'}`}>
+              <ExternalLink className={`${isCompact ? 'w-4 h-4' : 'w-6 h-6'}`} />
             </a>
           </div>
         </div>
