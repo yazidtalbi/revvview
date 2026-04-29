@@ -354,35 +354,15 @@ export default function SitePage({ params }: { params: Promise<{ domain: string 
 
                             {/* User Info & Text */}
                             <div className="flex-1">
-                              <div className="flex items-center gap-4 mb-4">
-                                <div className="w-12 h-12 rounded-full overflow-hidden border border-border relative shrink-0">
-                                  <Image src={review.avatar} alt={review.name} fill className="object-cover" unoptimized />
-                                </div>
-                                <div>
-                                  <p className="font-bold text-lg">{review.name}</p>
-                                  <p className="text-sm text-muted-foreground">from {review.country} • {review.date}</p>
-                                </div>
-                              </div>
-                              <p className="text-muted-foreground leading-relaxed text-base md:text-lg mb-4">
-                                "{review.text}"
-                              </p>
-                              <div className="flex flex-wrap gap-2">
-                                {review.tags.map((tag: string, tIdx: number) => (
-                                  <Badge key={tIdx} variant="outline" className="border-border text-sm font-bold px-4 py-1.5 text-muted-foreground bg-transparent">
-                                    {tag}
-                                  </Badge>
-                                ))}
-                              </div>
-
-                              {/* Horizontal Score Breakdown */}
-                              <div className="flex flex-wrap items-end justify-between gap-x-10 gap-y-6 pt-8 border-t border-dashed border-border mt-8">
+                              {/* Horizontal Score Breakdown (At Top) */}
+                              <div className="flex flex-wrap items-end justify-between gap-x-10 gap-y-6 pb-8 border-b border-dashed border-border mb-8">
                                 <div className="flex flex-wrap gap-x-10 gap-y-6">
                                   {[
                                     { label: "Design", score: review.design },
                                     { label: "Usability", score: review.usability },
                                     { label: "Creativity", score: review.creativity },
                                     { label: "Content", score: review.content },
-                                  ].map((item) => (
+                                  ].map((item: any) => (
                                     <div key={item.label} className="flex flex-col gap-1">
                                       <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{item.label}</span>
                                       <span className="text-lg font-bold text-black">{item.score}</span>
@@ -393,6 +373,34 @@ export default function SitePage({ params }: { params: Promise<{ domain: string 
                                   <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest text-right">Overall</span>
                                   <span className="text-3xl font-bold text-black leading-none">{review.overall}</span>
                                 </div>
+                              </div>
+
+                              <p className="text-muted-foreground leading-relaxed text-base md:text-lg mb-6 italic">
+                                "{review.text}"
+                              </p>
+                              
+                              <div className="flex flex-wrap gap-2 mb-8">
+                                {review.tags.map((tag: string, tIdx: number) => (
+                                  <Badge key={tIdx} variant="outline" className="border-border text-sm font-bold px-4 py-1.5 text-muted-foreground bg-transparent">
+                                    {tag}
+                                  </Badge>
+                                ))}
+                              </div>
+
+                              {/* User Info & Text (At Bottom) */}
+                              <div className="flex items-center justify-between pt-6 border-t border-border/50">
+                                <div className="flex items-center gap-4">
+                                  <div className="w-10 h-10 rounded-full overflow-hidden border border-border relative shrink-0">
+                                    <Image src={review.avatar} alt={review.name} fill className="object-cover" unoptimized />
+                                  </div>
+                                  <div>
+                                    <p className="font-bold text-base">{review.name}</p>
+                                    <p className="text-xs text-muted-foreground">from {review.country} • {review.date}</p>
+                                  </div>
+                                </div>
+                                <Button variant="ghost" className="text-muted-foreground hover:text-black font-bold text-xs gap-1 h-8 px-2">
+                                  Helpful? <ArrowRight className="w-3 h-3" />
+                                </Button>
                               </div>
                             </div>
 
