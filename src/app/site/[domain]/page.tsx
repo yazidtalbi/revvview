@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/Header";
@@ -11,6 +11,29 @@ import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, Dialog
 export default function SitePage({ params }: { params: Promise<{ domain: string }> }) {
   const { domain } = React.use(params);
   const [activeTab, setActiveTab] = useState("v2.0");
+  const [headerVisible, setHeaderVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      // Show header if scrolling up, hide if scrolling down
+      // But keep it visible at the very top
+      if (currentScrollY < 100) {
+        setHeaderVisible(true);
+      } else if (currentScrollY > lastScrollY) {
+        setHeaderVisible(false);
+      } else {
+        setHeaderVisible(true);
+      }
+      
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
 
   // Mock Data
   const versionsData = {
@@ -43,7 +66,7 @@ export default function SitePage({ params }: { params: Promise<{ domain: string 
       <main className="flex-1 w-full px-4 md:px-8 lg:px-12">
 
         {/* Site Sticky Header Section */}
-        <div className="sticky top-16 z-40 bg-background/95 backdrop-blur-sm py-8 border-b border-border transition-all flex flex-col md:flex-row items-center justify-between gap-6 mb-12">
+        <div className={`sticky top-16 z-40 bg-background/95 backdrop-blur-sm py-8 border-b border-border transition-all duration-500 ease-in-out flex flex-col md:flex-row items-center justify-between gap-6 mb-12 ${headerVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0 pointer-events-none'}`}>
           <div className="flex flex-col items-center md:items-start text-center md:text-left w-full overflow-hidden">
             <p className="text-sm font-bold text-muted-foreground tracking-widest mb-2 uppercase">Site of the Day</p>
             <h1 className="text-4xl md:text-6xl font-bold tracking-tighter">{domain}</h1>
