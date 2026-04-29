@@ -375,23 +375,24 @@ export default function SitePage({ params }: { params: Promise<{ domain: string 
                               </div>
 
                               {/* Horizontal Score Breakdown */}
-                              <div className="flex flex-wrap gap-x-10 gap-y-6 pt-8 border-t border-dashed border-border mt-8">
-                                <div className="flex flex-col gap-1">
-                                  <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Overall</span>
-                                  <span className="text-2xl font-bold text-black">{review.overall}</span>
+                              <div className="flex flex-wrap items-end justify-between gap-x-10 gap-y-6 pt-8 border-t border-dashed border-border mt-8">
+                                <div className="flex flex-wrap gap-x-10 gap-y-6">
+                                  {[
+                                    { label: "Design", score: review.design },
+                                    { label: "Usability", score: review.usability },
+                                    { label: "Creativity", score: review.creativity },
+                                    { label: "Content", score: review.content },
+                                  ].map((item) => (
+                                    <div key={item.label} className="flex flex-col gap-1">
+                                      <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{item.label}</span>
+                                      <span className="text-lg font-bold text-black">{item.score}</span>
+                                    </div>
+                                  ))}
                                 </div>
-                                <div className="w-px h-10 bg-border hidden md:block" />
-                                {[
-                                  { label: "Design", score: review.design },
-                                  { label: "Usability", score: review.usability },
-                                  { label: "Creativity", score: review.creativity },
-                                  { label: "Content", score: review.content },
-                                ].map((item) => (
-                                  <div key={item.label} className="flex flex-col gap-1">
-                                    <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{item.label}</span>
-                                    <span className="text-lg font-bold text-black">{item.score}</span>
-                                  </div>
-                                ))}
+                                <div className="flex flex-col gap-1 items-end">
+                                  <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest text-right">Overall</span>
+                                  <span className="text-3xl font-bold text-black leading-none">{review.overall}</span>
+                                </div>
                               </div>
                             </div>
 
