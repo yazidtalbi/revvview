@@ -19,8 +19,6 @@ export default function SitePage({ params }: { params: Promise<{ domain: string 
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       
-      // Show header if scrolling up, hide if scrolling down
-      // But keep it visible at the very top
       if (currentScrollY < 100) {
         setHeaderVisible(true);
         setIsCompact(false);
@@ -375,31 +373,25 @@ export default function SitePage({ params }: { params: Promise<{ domain: string 
                                   </Badge>
                                 ))}
                               </div>
-                            </div>
 
-                            {/* Scores Breakdown */}
-                            <div className="flex flex-col shrink-0 lg:w-64 bg-secondary/50 rounded-xl p-4 md:p-6 border border-border/50">
-                              <div className="flex items-center justify-between mb-4 pb-4 border-b border-border/50">
-                                <span className="font-bold">Overall</span>
-                                <span className="font-bold text-2xl">{review.overall}</span>
-                              </div>
-                              <div className="space-y-3">
-                                <div className="flex items-center justify-between text-sm">
-                                  <span className="text-muted-foreground">Design</span>
-                                  <span className="font-bold">{review.design}</span>
+                              {/* Horizontal Score Breakdown */}
+                              <div className="flex flex-wrap gap-x-10 gap-y-6 pt-8 border-t border-dashed border-border mt-8">
+                                <div className="flex flex-col gap-1">
+                                  <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Overall</span>
+                                  <span className="text-2xl font-bold text-black">{review.overall}</span>
                                 </div>
-                                <div className="flex items-center justify-between text-sm">
-                                  <span className="text-muted-foreground">Usability</span>
-                                  <span className="font-bold">{review.usability}</span>
-                                </div>
-                                <div className="flex items-center justify-between text-sm">
-                                  <span className="text-muted-foreground">Creativity</span>
-                                  <span className="font-bold">{review.creativity}</span>
-                                </div>
-                                <div className="flex items-center justify-between text-sm">
-                                  <span className="text-muted-foreground">Content</span>
-                                  <span className="font-bold">{review.content}</span>
-                                </div>
+                                <div className="w-px h-10 bg-border hidden md:block" />
+                                {[
+                                  { label: "Design", score: review.design },
+                                  { label: "Usability", score: review.usability },
+                                  { label: "Creativity", score: review.creativity },
+                                  { label: "Content", score: review.content },
+                                ].map((item) => (
+                                  <div key={item.label} className="flex flex-col gap-1">
+                                    <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{item.label}</span>
+                                    <span className="text-lg font-bold text-black">{item.score}</span>
+                                  </div>
+                                ))}
                               </div>
                             </div>
 
