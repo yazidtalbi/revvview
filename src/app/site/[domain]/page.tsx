@@ -272,40 +272,42 @@ export default function SitePage({ params }: { params: Promise<{ domain: string 
               <div className="space-y-16">
                   {/* Community Score section */}
                   <div className="grid grid-cols-1 xl:grid-cols-2 gap-12">
-                    {/* Left: Score Breakdown */}
+                    {/* Left: Changelog */}
                     <div>
-                      <h2 className="text-2xl font-bold mb-8 tracking-tight">Community Score</h2>
-                      <div className="space-y-6">
-                        {[
-                          { label: "Design", score: activeData.score?.design },
-                          { label: "Usability", score: activeData.score?.usability },
-                          { label: "Creativity", score: activeData.score?.creativity },
-                          { label: "Content", score: activeData.score?.content },
-                        ].map((item) => (
-                          <div key={item.label} className="flex flex-col gap-2">
-                            <div className="flex justify-between items-center">
-                              <span className="text-sm font-bold tracking-wide">{item.label}</span>
-                              <span className="text-sm font-bold">{item.score}</span>
-                            </div>
-                            <div className="w-full h-3 bg-secondary rounded-full relative overflow-hidden">
-                              <div className="absolute top-0 left-0 h-full bg-black rounded-full" style={{ width: `${(item.score || 0 / 10) * 10}%` }}></div>
-                            </div>
-                          </div>
-                        ))}
-
-                        <div className="pt-4 flex items-center justify-between border-t border-border mt-6">
-                          <span className="font-bold text-lg">Total Score</span>
-                          <span className="font-bold text-3xl text-primary">{activeData.score?.overall}</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Right: Changelog */}
-                    <div className="xl:border-l xl:border-border xl:pl-12">
                       <h2 className="text-2xl font-bold mb-8 tracking-tight">What's New in {activeTab}</h2>
                       <div className="pt-0 md:pt-2 border-t border-border">
                         <div className="text-muted-foreground leading-relaxed text-base max-w-4xl space-y-4 mt-6">
                           <p>{activeData.changelog}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Right: Score Breakdown */}
+                    <div className="xl:border-l xl:border-border xl:pl-12">
+                      <h2 className="text-2xl font-bold mb-8 tracking-tight">Community Score</h2>
+                      <div className="pt-0 md:pt-2 border-t border-border">
+                        <div className="space-y-6 mt-6">
+                          {[
+                            { label: "Design", score: activeData.score?.design },
+                            { label: "Usability", score: activeData.score?.usability },
+                            { label: "Creativity", score: activeData.score?.creativity },
+                            { label: "Content", score: activeData.score?.content },
+                          ].map((item) => (
+                            <div key={item.label} className="flex flex-col gap-2">
+                              <div className="flex justify-between items-center">
+                                <span className="text-sm font-bold tracking-wide">{item.label}</span>
+                                <span className="text-sm font-bold">{item.score}</span>
+                              </div>
+                              <div className="w-full h-3 bg-secondary rounded-full relative overflow-hidden">
+                                <div className="absolute top-0 left-0 h-full bg-black rounded-full" style={{ width: `${(item.score || 0 / 10) * 10}%` }}></div>
+                              </div>
+                            </div>
+                          ))}
+
+                          <div className="pt-4 flex items-center justify-between border-t border-border mt-6">
+                            <span className="font-bold text-lg">Total Score</span>
+                            <span className="font-bold text-3xl text-primary">{activeData.score?.overall}</span>
+                          </div>
                         </div>
                       </div>
                     </div>
