@@ -271,7 +271,7 @@ export default function SitePage({ params }: { params: Promise<{ domain: string 
 
               <div className="space-y-16">
                   {/* Community Score section */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                  <div className="grid grid-cols-1 xl:grid-cols-3 gap-12">
                     {/* Left: Score Breakdown */}
                     <div>
                       <h2 className="text-2xl font-bold mb-8 tracking-tight">Community Score</h2>
@@ -300,7 +300,7 @@ export default function SitePage({ params }: { params: Promise<{ domain: string 
                       </div>
                     </div>
 
-                    {/* Right: Top Label */}
+                    {/* Middle: Top Label */}
                     <div>
                       <h2 className="text-2xl font-bold mb-8 tracking-tight opacity-0 hidden md:block">Label</h2>
                       <div className="pt-0 md:pt-2 border-t border-border">
@@ -316,13 +316,15 @@ export default function SitePage({ params }: { params: Promise<{ domain: string 
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                  {/* Changelog */}
-                  <div className="border-t border-border pt-12">
-                    <h2 className="text-2xl font-bold mb-4 tracking-tight">What's New in {activeTab}</h2>
-                    <div className="text-muted-foreground leading-relaxed text-lg max-w-4xl space-y-4">
-                      <p>{activeData.changelog}</p>
+                    {/* Right: Changelog */}
+                    <div className="xl:border-l xl:border-border xl:pl-12">
+                      <h2 className="text-2xl font-bold mb-8 tracking-tight">What's New in {activeTab}</h2>
+                      <div className="pt-0 md:pt-2 border-t border-border">
+                        <div className="text-muted-foreground leading-relaxed text-base max-w-4xl space-y-4 mt-6">
+                          <p>{activeData.changelog}</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
